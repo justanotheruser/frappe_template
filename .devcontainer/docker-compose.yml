@@ -17,10 +17,11 @@ services:
       - frappe-tutorial-network
 
   db:
-    image: mariadb:12.0.1-ubi9-rc
+    image: mariadb:10.11
     restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql
+      - ./.devcontainer/mysql/frappe.cnf:/etc/mysql/conf.d/frappe.cnf:ro
     environment:
       - MYSQL_ROOT_PASSWORD=secret
     networks:

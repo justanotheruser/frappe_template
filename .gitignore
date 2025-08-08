@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Bench / Frappe
+sites/*/
+!sites/common_site_config.json
+sites/assets/
+sites/.build/
+sites/cached_assets.json
+sites/.DS_Store
+sites/.pytest_cache/
+
+# Logs
+*.log
+*.pid
+
+# Env
+.env
+*.sqlite
+*.db
+
+# OS
+.DS_Store
+Thumbs.db
