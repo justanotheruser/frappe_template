@@ -1,0 +1,23 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+  "name": "Frappe Tutorial",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "bierner.markdown-mermaid",
+        "tamasfe.even-better-toml",
+        "ms-azuretools.vscode-docker",
+        "littlefoxteam.vscode-python-test-adapter"
+      ]
+    }
+  },
+	"features": {
+		"docker-in-docker": "latest",
+		"docker-from-docker": "latest"
+	}
+}

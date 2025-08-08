@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      - PYTHONPATH=/workspace
+    depends_on:
+      - db
+      - redis
+    ports:
+      - "8000:8000"
+    networks:
+      - frappe-tutorial-network
+
+  db:
+    image: mariadb:12.0.1-ubi9-rc
+    restart: unless-stopped
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+    networks:
+      - frappe-tutorial-network
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7.0.11-alpine
+    restart: unless-stopped
+    networks:
+      - frappe-tutorial-network
+    ports:
+      - "6379:6379"
+
+networks:
+  frappe-tutorial-network:
+    driver: bridge
+
+volumes:
+  mariadb-data:
+    name: mariadb-frappe-tutorial
