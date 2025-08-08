@@ -8,6 +8,12 @@ services:
     command: sleep infinity
     environment:
       - PYTHONPATH=/workspace
+      - DB_HOST=db
+      - DB_PORT=3306
+      - MYSQL_ROOT_PASSWORD=secret
+      - REDIS_CACHE=redis:6379
+      - REDIS_QUEUE=redis:6379
+      - REDIS_SOCKETIO=redis:6379
     depends_on:
       - db
       - redis
@@ -21,7 +27,7 @@ services:
     restart: unless-stopped
     volumes:
       - mariadb-data:/var/lib/mysql
-      - ./.devcontainer/mysql/frappe.cnf:/etc/mysql/conf.d/frappe.cnf:ro
+      - ./mysql/frappe.cnf:/etc/mysql/conf.d/frappe.cnf:ro
     environment:
       - MYSQL_ROOT_PASSWORD=secret
     networks:

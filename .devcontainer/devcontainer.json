@@ -7,6 +7,10 @@
   "workspaceFolder": "/workspace",
   "customizations": {
     "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "python.venvPath": "/usr/local/"
+      },
       "extensions": [
         "ms-python.python",
         "bierner.markdown-mermaid",
@@ -16,8 +20,8 @@
       ]
     }
   },
-	"features": {
-		"docker-in-docker": "latest",
-		"docker-from-docker": "latest"
-	}
+  "features": {
+    "docker-in-docker": "latest",
+    "docker-from-docker": "latest"
+  }
 }
