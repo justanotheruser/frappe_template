@@ -27,8 +27,6 @@ RUN python3 -m pip install --upgrade pip pipx && \
     python3 -m pipx ensurepath
 ENV PATH=/root/.local/bin:$PATH
 
-RUN pipx install "frappe-bench==5.*"
-
 WORKDIR /workspace
 ENV PYTHONPATH=/workspace
 ENV PYTHONUNBUFFERED=1

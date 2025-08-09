@@ -1,0 +1,23 @@
+{
+    // Hide heavy/generated folders in the file explorer
+    "files.exclude": {
+        "**/frappe-bench/env": true,
+        "**/frappe-bench/node_modules": true,
+        "**/frappe-bench/sites/assets": true,
+        "**/frappe-bench/sites/.build": true
+    },
+    // Don’t watch these folders for changes (less CPU usage)
+    "files.watcherExclude": {
+        "**/frappe-bench/env/**": true,
+        "**/frappe-bench/node_modules/**": true,
+        "**/frappe-bench/sites/assets/**": true,
+        "**/frappe-bench/sites/.build/**": true
+    },
+    // Skip them in full-text search
+    "search.exclude": {
+        "**/frappe-bench/env/**": true,
+        "**/frappe-bench/node_modules/**": true,
+        "**/frappe-bench/sites/assets/**": true,
+        "**/frappe-bench/sites/.build/**": true
+    }
+}

@@ -9,19 +9,41 @@
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python3",
-        "python.venvPath": "/usr/local/"
+        "python.venvPath": "/usr/local/",
+        // Exclude heavy/generated folders from file watcher & search
+        "files.watcherExclude": {
+          "**/frappe-bench/env/**": true,
+          "**/frappe-bench/node_modules/**": true,
+          "**/frappe-bench/sites/assets/**": true,
+          "**/frappe-bench/sites/.build/**": true
+        },
+        "files.exclude": {
+          "**/frappe-bench/env": true,
+          "**/frappe-bench/node_modules": true,
+          "**/frappe-bench/sites/assets": true,
+          "**/frappe-bench/sites/.build": true
+        },
+        // Exclude same folders from IntelliSense indexing
+        "search.exclude": {
+          "**/frappe-bench/env/**": true,
+          "**/frappe-bench/node_modules/**": true,
+          "**/frappe-bench/sites/assets/**": true,
+          "**/frappe-bench/sites/.build/**": true
+        }
       },
       "extensions": [
         "ms-python.python",
         "bierner.markdown-mermaid",
         "tamasfe.even-better-toml",
         "ms-azuretools.vscode-docker",
-        "littlefoxteam.vscode-python-test-adapter"
+        "littlefoxteam.vscode-python-test-adapter",
+        "Redis.redis-for-vscode"
       ]
     }
   },
   "features": {
     "docker-in-docker": "latest",
     "docker-from-docker": "latest"
-  }
+  },
+  "postCreateCommand": "bash .devcontainer/bootstrap.sh"
 }
