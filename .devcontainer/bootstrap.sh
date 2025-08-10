@@ -29,7 +29,7 @@ if ! command -v bench >/dev/null 2>&1; then
   echo "➡️  Installing bench via pipx..."
   python3 -m pip install --upgrade pip pipx >/dev/null
   python3 -m pipx ensurepath >/dev/null
-  pipx install "frappe-bench==5.*"
+  pipx install "frappe-bench==5.*" honcho
 fi
 
 # ------------ Wait for MariaDB to be ready ------------
