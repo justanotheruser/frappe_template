@@ -8,7 +8,7 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "python.defaultInterpreterPath": "/workspace/frappe-bench/env/bin/python",
         "python.venvPath": "/usr/local/",
         // Exclude heavy/generated folders from file watcher & search
         "files.watcherExclude": {
