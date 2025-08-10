@@ -7,13 +7,14 @@ BENCH_DIR="${BENCH_DIR:-$WORKDIR/frappe-bench}"
 FRAPPE_BRANCH="${FRAPPE_BRANCH:-version-15}"
 PYTHON_BIN="${PYTHON_BIN:-/usr/local/bin/python3}"
 
-# From docker-compose.yml (already set on app service)
 DB_HOST="${DB_HOST:-db}"
-DB_PORT="${DB_PORT:-3306}"
-MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD:-secret}"
+DB_PORT="${DB_PORT:-5432}"
+POSTGRES_USER="${POSTGRES_USER:-postgres}"
+POSTGRES_PASSWORD="${POSTGRES_PASSWORD:-secret}"
+
 REDIS_CACHE="${REDIS_CACHE:-redis://redis:6379}"
-REDIS_QUEUE="${REDIS_QUEUE:-redis://:6379}"
-REDIS_SOCKETIO="${REDIS_SOCKETIO:-redis://:6379}"
+REDIS_QUEUE="${REDIS_QUEUE:-redis://redis:6379}"
+REDIS_SOCKETIO="${REDIS_SOCKETIO:-redis://redis:6379}"
 
 # Optional: pull ERPNext too (set INSTALL_ERPNEXT=true)
 INSTALL_ERPNEXT="${INSTALL_ERPNEXT:-false}"
@@ -23,6 +24,7 @@ echo "🏁 Bootstrap starting..."
 echo "  Workdir: $WORKDIR"
 echo "  Bench:   $BENCH_DIR"
 echo "  Frappe:  $FRAPPE_BRANCH"
+echo "  DB:      postgres@$DB_HOST:$DB_PORT"
 
 # ------------ Ensure bench CLI is available ------------
 if ! command -v bench >/dev/null 2>&1; then
@@ -32,12 +34,13 @@ if ! command -v bench >/dev/null 2>&1; then
   pipx install "frappe-bench==5.*" honcho
 fi
 
-# ------------ Wait for MariaDB to be ready ------------
-echo "⏳ Waiting for MariaDB at ${DB_HOST}:${DB_PORT}..."
-until mysqladmin ping -h"${DB_HOST}" -P"${DB_PORT}" -uroot -p"${MYSQL_ROOT_PASSWORD}" --silent; do
+# ------------ Wait for PostgreSQL to be ready ------------
+echo "⏳ Waiting for PostgreSQL at ${DB_HOST}:${DB_PORT}..."
+export PGPASSWORD="${POSTGRES_PASSWORD}"
+until pg_isready -h "${DB_HOST}" -p "${DB_PORT}" -U "${POSTGRES_USER}" >/dev/null 2>&1; do
   sleep 2
 done
-echo "✅ MariaDB is up."
+echo "✅ PostgreSQL is up."
 
 # ------------ Create bench if missing ------------
 if [ ! -d "${BENCH_DIR}" ]; then
@@ -54,12 +57,6 @@ cd "${BENCH_DIR}"
 if [ ! -d "apps/frappe" ]; then
   echo "➡️  Getting frappe (${FRAPPE_BRANCH})..."
   bench get-app --branch "${FRAPPE_BRANCH}" https://github.com/frappe/frappe
-fi
-
-# Optional ERPNext
-if [ "${INSTALL_ERPNEXT}" = "true" ] && [ ! -d "apps/erpnext" ]; then
-  echo "➡️  Getting ERPNext (${ERPNEXT_BRANCH})..."
-  bench get-app --branch "${ERPNEXT_BRANCH}" https://github.com/frappe/erpnext
 fi
 
 # ------------ Global config (use Docker hosts) ------------

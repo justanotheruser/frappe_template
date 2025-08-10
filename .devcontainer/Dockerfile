@@ -3,13 +3,12 @@ FROM mcr.microsoft.com/devcontainers/python:1-3.10-bookworm
 # Install system dependencies for Frappe
 RUN apt-get update && apt-get install -y \
     git curl wget nano build-essential \
-    mariadb-client \
+    postgresql-client libpq-dev \
     xvfb libfontconfig \
     ca-certificates \
     libjpeg-dev zlib1g-dev libpng-dev libwebp-dev \
     libffi-dev libssl-dev \
     pkg-config \
-    libmariadb-dev \
     redis-tools \
     # For some reason, Frappe insists on having redis-server. Okay...
     redis-server \
