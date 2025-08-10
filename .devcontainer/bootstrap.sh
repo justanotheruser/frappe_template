@@ -4,7 +4,7 @@ set -euo pipefail
 # ------------ Config (can be overridden via env) ------------
 WORKDIR="${WORKDIR:-/workspace}"
 BENCH_DIR="${BENCH_DIR:-$WORKDIR/frappe-bench}"
-FRAPPE_BRANCH="${FRAPPE_BRANCH:-version-14}"
+FRAPPE_BRANCH="${FRAPPE_BRANCH:-version-15}"
 PYTHON_BIN="${PYTHON_BIN:-/usr/local/bin/python3}"
 
 # From docker-compose.yml (already set on app service)
@@ -17,7 +17,7 @@ REDIS_SOCKETIO="${REDIS_SOCKETIO:-redis://:6379}"
 
 # Optional: pull ERPNext too (set INSTALL_ERPNEXT=true)
 INSTALL_ERPNEXT="${INSTALL_ERPNEXT:-false}"
-ERPNEXT_BRANCH="${ERPNEXT_BRANCH:-version-14}"
+ERPNEXT_BRANCH="${ERPNEXT_BRANCH:-version-15}"
 
 echo "🏁 Bootstrap starting..."
 echo "  Workdir: $WORKDIR"
